@@ -1,0 +1,8 @@
+.wrapper > * {
+    width:50%;
+}
+
+.wrapper {
+    background: red;
+    margin-bottom: 5px;
+}
