@@ -5,7 +5,7 @@ import Nav from '../Navigation/nav';
 
 import SignInPage from '../SignIn/signIn';
 import SignUpPage from '../SignUp/signUp';
-import SignOutPage from '../SignOut/signOut';
+import SignOutButton from '../SignOut/signOut';
 import AccountPage from '../Account/AccountPage';
 import AdminPage from '../Admin/AdminPage';
 
@@ -37,7 +37,7 @@ class App extends React.Component {
         <Nav authUser={this.state.authUser} />
         <Route path={routes.SIGN_IN} component={SignInPage} />
         <Route path={routes.SIGN_UP} component={SignUpPage} />
-        <Route path={routes.SIGN_OUT} component={SignOutPage} />
+        {/* <Route path={routes.SIGN_OUT} component={SignOutButton} /> */}
         <Route path={routes.ADMIN} component={AdminPage} />
         <Route path={routes.ACCOUNT} component={AccountPage} />
         <Route path={routes.PRODUCT_PAGE} component={ProductPage} />

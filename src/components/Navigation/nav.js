@@ -5,31 +5,34 @@ import SignOutButton from '../SignOut/signOut';
 
 import * as routes from '../Common/routes';
 import { auth } from 'firebase';
+import { withFirebase } from '../Firebase';
 
-const AuthMenu = ({ authUser }) => {
+const NavigationAuth = ({ authUser }) => {
   return (
-    <Fragment>
-      {authUser ? (
-        <Menu.Menu position="right">
-          <SignOutButton />
-        </Menu.Menu>
-      ) : (
-        <Menu.Menu position="right">
-          <Menu.Item as="a" link={true} href={routes.SIGN_UP}>
-            <Icon name="add user" /> Sign Up
-          </Menu.Item>
-          <Menu.Item as="a" link={true} href={routes.SIGN_IN}>
-            <Icon name="user" /> Sign In
-          </Menu.Item>
-        </Menu.Menu>
-      )}
-    </Fragment>
+    <Menu.Menu position="right">
+      <SignOutButton />
+    </Menu.Menu>
+  );
+};
+const NavigationNonAuth = ({ authUser }) => {
+  return (
+    <Menu.Menu position="right">
+      <Menu.Item as="a" link={true} href={routes.SIGN_UP}>
+        <Icon name="add user" /> Sign Up
+      </Menu.Item>
+      <Menu.Item as="a" link={true} href={routes.SIGN_IN}>
+        <Icon name="user" /> Sign In
+      </Menu.Item>
+    </Menu.Menu>
   );
 };
 
 class Nav extends React.Component {
   render() {
-    const { authUser } = this.props;
+    const { authUser, firebase } = this.props;
+    {
+      console.log(authUser);
+    }
     return (
       <Menu fixed="top" inverted>
         <Container>
@@ -48,10 +51,14 @@ class Nav extends React.Component {
             Products
           </Menu.Item>
         </Container>
-        <AuthMenu authUser={authUser} />
+        {authUser ? (
+          <NavigationAuth authUser={authUser} />
+        ) : (
+          <NavigationNonAuth />
+        )}
       </Menu>
     );
   }
 }
 
-export default Nav;
+export default withFirebase(Nav);

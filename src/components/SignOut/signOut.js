@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { Button } from 'semantic-ui-react';
 import Firebase, { withFirebase } from '../Firebase';
 
-const SignOutButton = ({ firebase }) => {
+const SignOutButton = props => {
+  console.log(props);
   return (
-    <button type="button" onClick={firebase.doSignOut}>
-      Sign Out
-    </button>
+    <Button type="button" onClick={props.firebase.doSignOut}>
+      Sign out
+    </Button>
   );
 };
-export default withFirebase(SignOutButton);
+export default compose(withFirebase)(SignOutButton);
