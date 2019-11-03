@@ -1,6 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore';
+import 'firebase/firebase-firestore';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyD2gf4yAzq0A5r7CVro_dVrnFTqKIHFBHs',
@@ -18,6 +18,10 @@ class Firebase {
     this.auth = app.auth();
 
     this.db = app.firestore();
+    // Social sign-in method
+    this.googleProvider = new app.auth.GoogleAuthProvider();
+    this.facebookProvider = new app.auth.FacebookAuthProvider();
+    this.twitterProvider = new app.auth.TwitterAuthProvider();
   }
   // Auth API
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -25,8 +29,14 @@ class Firebase {
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
+  doSignInWithGoogle = () =>
+    this.auth.signInWithPopup(this.googleProvider);
+  doSignInWithFacebook = () =>
+    this.auth.signInWithPopup(this.facebookProvider);
+  doSignInWithTwitter = () =>
+    this.auth.signInWithPopup(this.twitterProvider);
 
-  doSignOut = () => this.auth.signOut;
+  doSignOut = () => this.auth.signOut();
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
@@ -34,6 +44,8 @@ class Firebase {
     this.auth.currentUser.updatePassword(password);
 
   doAddUserData = data => this.db.collection('users').add(data);
+
+  getProducts = () => this.db.collection('products').get();
 }
 
 export default Firebase;
