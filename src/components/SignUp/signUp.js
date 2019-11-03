@@ -1,8 +1,10 @@
-import styles from './signUp.modules.css';
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { Form, Header, Grid } from 'semantic-ui-react';
+import * as routes from '../Common/routes';
+import { compose } from 'recompose';
 
-import { withFirebase } from '../Firebase';
+import Firebase, { withFirebase } from '../Firebase';
 
 export default () => {
   return <SignUpForm />;
@@ -11,7 +13,7 @@ export default () => {
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
-  { key: 'o', text: 'Other', value: 'other' },
+  { key: 'o', text: 'Other', value: 'other' }
 ];
 
 const INTIAL_STATE = {
@@ -23,13 +25,14 @@ const INTIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
   termsCheck: false,
-  error: null,
+  error: null
 };
 
 class SignUpFormBase extends React.Component {
   state = { ...INTIAL_STATE };
 
   handleChange = (e, { name, value }) => {
+    console.log(this.state);
     name === 'gender' || name === 'termsCheck'
       ? this.setState({ [name]: value })
       : this.setState({ [e.target.name]: e.target.value });
@@ -43,15 +46,26 @@ class SignUpFormBase extends React.Component {
       phoneNumber,
       email,
       passwordOne,
-      termsCheck,
+      termsCheck
     } = this.state;
-    console.log(e);
+    console.log(this.props);
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INTIAL_STATE });
+        this.props.history.push(routes.HOME);
+
+        // add the data of user in database
+        this.props.firebase.doAddUserUserData({
+          firstName,
+          lastName,
+          gender,
+          mobile: phoneNumber,
+          email
+        });
       })
-      .then(error => {
+      .catch(error => {
         this.setState({ error });
       });
     e.preventDefault();
@@ -67,7 +81,7 @@ class SignUpFormBase extends React.Component {
       passwordOne,
       passwordTwo,
       termsCheck,
-      error,
+      error
     } = this.state;
 
     const isInvalid =
@@ -89,7 +103,7 @@ class SignUpFormBase extends React.Component {
           <Header as="h2" color="teal">
             Sign Up Today to enjoy exclusive offers
           </Header>
-          <Form size="large" textAlign="left">
+          <Form onSubmit={this.handleSubmit} size="large">
             <Form.Group widths="equal">
               <Form.Input
                 fluid
@@ -161,18 +175,13 @@ class SignUpFormBase extends React.Component {
               onChange={e =>
                 this.setState({
                   termsCheck: !e.target.parentNode.classList.contains(
-                    'checked',
-                  ),
+                    'checked'
+                  )
                 })
               }
-              value={termsCheck}
               label="I agree to the Terms and Conditions"
             />
-            <Form.Button
-              type="submit"
-              disabled={isInvalid}
-              onSubmit={this.handleSubmit}
-            >
+            <Form.Button type="submit" disabled={isInvalid}>
               Submit
             </Form.Button>
             {error && <p>{error.message}</p>}
@@ -183,6 +192,9 @@ class SignUpFormBase extends React.Component {
   }
 }
 
-const SignUpForm = withFirebase(SignUpFormBase);
+const SignUpForm = compose(
+  withRouter,
+  withFirebase
+)(SignUpFormBase);
 
 export { SignUpForm };

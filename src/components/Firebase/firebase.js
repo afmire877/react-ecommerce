@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyD2gf4yAzq0A5r7CVro_dVrnFTqKIHFBHs',
@@ -9,14 +10,16 @@ export const firebaseConfig = {
   storageBucket: 'react-ecommerce-4dbd1.appspot.com',
   messagingSenderId: '243227018892',
   appId: '1:243227018892:web:779f24500fdf45fbe49da9',
-  measurementId: 'G-J6QJ9PE4ZQ',
+  measurementId: 'G-J6QJ9PE4ZQ'
 };
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
-  }
 
+    this.db = app.firestore();
+  }
+  // Auth API
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -29,6 +32,8 @@ class Firebase {
 
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
+
+  doAddUserData = data => this.db.collection('users').add(data);
 }
 
 export default Firebase;

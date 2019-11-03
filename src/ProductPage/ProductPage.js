@@ -2,12 +2,12 @@ import styles from './Productpage.module.css';
 import React, { Fragment } from 'react';
 import { Card, Container } from 'semantic-ui-react';
 import * as firebase from 'firebase/app';
+import Firebase from '../components/Firebase';
 import ProductCard from '../components/ProductCard/productCard';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 
 // const src = '/images/wireframe/white-image.png'
-
-const db = firebase.firestore();
+const db = firebase;
 
 // images folder api https://react-ecommerce-4dbd1.appspot.com/
 
