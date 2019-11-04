@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
+import 'firebase/firebase-storage';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyD2gf4yAzq0A5r7CVro_dVrnFTqKIHFBHs',
@@ -16,6 +17,7 @@ class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
+    this.storage = app.storage();
 
     this.db = app.firestore();
     // Social sign-in method
@@ -29,10 +31,13 @@ class Firebase {
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
+
   doSignInWithGoogle = () =>
     this.auth.signInWithPopup(this.googleProvider);
+
   doSignInWithFacebook = () =>
     this.auth.signInWithPopup(this.facebookProvider);
+
   doSignInWithTwitter = () =>
     this.auth.signInWithPopup(this.twitterProvider);
 
@@ -45,7 +50,18 @@ class Firebase {
 
   doAddUserData = data => this.db.collection('users').add(data);
 
+  // DB API
   getProducts = () => this.db.collection('products').get();
+  getProduct = id =>
+    this.db
+      .collection('products')
+      .doc(id)
+      .get();
+
+  // Storage API
+
+  getImage = image =>
+    this.storage.ref(`images/${image}`).getDownloadURL();
 }
 
 export default Firebase;

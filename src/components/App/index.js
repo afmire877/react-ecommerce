@@ -8,10 +8,17 @@ import SignUpPage from '../SignUp/signUp';
 import SignOutButton from '../SignOut/signOut';
 import AccountPage from '../Account/AccountPage';
 import AdminPage from '../Admin/AdminPage';
+import ProductDetailsPage from '../ProductDetailsPage';
 
 import * as routes from '../Common/routes';
 import ProductPage from '../../ProductPage/ProductPage';
 import { withFirebase } from '../Firebase';
+import Styled from 'styled-components';
+const Wrapper = Styled.div`
+    margin-top: 60px;
+
+
+`;
 
 class App extends React.Component {
   state = {
@@ -35,12 +42,22 @@ class App extends React.Component {
     return (
       <Router>
         <Nav authUser={this.state.authUser} />
-        <Route path={routes.SIGN_IN} component={SignInPage} />
-        <Route path={routes.SIGN_UP} component={SignUpPage} />
-        {/* <Route path={routes.SIGN_OUT} component={SignOutButton} /> */}
-        <Route path={routes.ADMIN} component={AdminPage} />
-        <Route path={routes.ACCOUNT} component={AccountPage} />
-        <Route path={routes.PRODUCT_PAGE} component={ProductPage} />
+        <Wrapper>
+          <Route path={routes.SIGN_IN} component={SignInPage} />
+          <Route path={routes.SIGN_UP} component={SignUpPage} />
+          {/* <Route path={routes.SIGN_OUT} component={SignOutButton} /> */}
+          <Route path={routes.ADMIN} component={AdminPage} />
+          <Route path={routes.ACCOUNT} component={AccountPage} />
+          <Route
+            exact
+            path={routes.PRODUCT_PAGE}
+            component={ProductPage}
+          />
+          <Route
+            path={'/products/:id'}
+            component={ProductDetailsPage}
+          />
+        </Wrapper>
       </Router>
     );
   }

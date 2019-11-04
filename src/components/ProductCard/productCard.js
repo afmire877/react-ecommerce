@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
-const ProductCard = ({ image, name, id, price }) => (
-  <Card>
+const ProductCard = ({ image, name, id, price, href }) => (
+  <Card link={true} href={href}>
     {image ? <Image src={image} wrapped ui={false} /> : ''}
     <Card.Content>
       <Card.Header>{name}</Card.Header>
