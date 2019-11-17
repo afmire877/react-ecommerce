@@ -32,7 +32,6 @@ class SignUpFormBase extends React.Component {
   state = { ...INTIAL_STATE };
 
   handleChange = (e, { name, value }) => {
-    console.log(this.state);
     name === 'gender' || name === 'termsCheck'
       ? this.setState({ [name]: value })
       : this.setState({ [e.target.name]: e.target.value });
@@ -48,22 +47,31 @@ class SignUpFormBase extends React.Component {
       passwordOne,
       termsCheck
     } = this.state;
-    console.log(this.props);
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
+        const { uid } = authUser.user;
         this.setState({ ...INTIAL_STATE });
         this.props.history.push(routes.HOME);
+        console.log(authUser);
+        console.log(uid);
 
         // add the data of user in database
-        this.props.firebase.doAddUserUserData({
-          firstName,
-          lastName,
-          gender,
-          mobile: phoneNumber,
-          email
-        });
+        this.props.firebase
+          .doAddUserData(
+            {
+              uid,
+              firstName,
+              lastName,
+              gender,
+              mobile: phoneNumber,
+              email,
+              role: 'customer'
+            },
+            uid
+          )
+          .then(value => console.log(value));
       })
       .catch(error => {
         this.setState({ error });

@@ -5,7 +5,6 @@ import { Button } from 'semantic-ui-react';
 import Firebase, { withFirebase } from '../Firebase';
 
 const SignOutButton = props => {
-  console.log(props);
   return (
     <Button type="button" onClick={props.firebase.doSignOut}>
       Sign out

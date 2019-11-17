@@ -1,6 +1,10 @@
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import Nav from '../Navigation/nav';
 
 import SignInPage from '../SignIn/signIn';
@@ -14,6 +18,8 @@ import * as routes from '../Common/routes';
 import ProductPage from '../../ProductPage/ProductPage';
 import { withFirebase } from '../Firebase';
 import Styled from 'styled-components';
+import Home from '../Home';
+import Cart from '../Cart/cart';
 const Wrapper = Styled.div`
     margin-top: 60px;
 
@@ -45,9 +51,17 @@ class App extends React.Component {
         <Wrapper>
           <Route path={routes.SIGN_IN} component={SignInPage} />
           <Route path={routes.SIGN_UP} component={SignUpPage} />
-          {/* <Route path={routes.SIGN_OUT} component={SignOutButton} /> */}
-          <Route path={routes.ADMIN} component={AdminPage} />
+          <Route exact path={routes.HOME} component={Home} />
+
+          <PrivateRoute
+            path={routes.ADMIN}
+            authUser={this.state.authUser}
+          >
+            <AdminPage />
+          </PrivateRoute>
           <Route path={routes.ACCOUNT} component={AccountPage} />
+          <Route path={routes.CART} component={Cart} />
+
           <Route
             exact
             path={routes.PRODUCT_PAGE}
@@ -61,6 +75,26 @@ class App extends React.Component {
       </Router>
     );
   }
+}
+
+function PrivateRoute({ children, authUser, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        authUser ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: routes.SIGN_IN,
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
 }
 
 export default withFirebase(App);

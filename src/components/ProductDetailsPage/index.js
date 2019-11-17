@@ -2,8 +2,10 @@ import styles from './index.module.css';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
-import { Image, Grid } from 'semantic-ui-react';
+import { Image, Grid, Icon, Button } from 'semantic-ui-react';
 import Styled from 'styled-components';
+import { connect } from 'react-redux';
+import addToCart from '../../actionCreator/addToCart';
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -13,37 +15,31 @@ const ProductDetailsPage = () => {
 class ProductDetailsBase extends React.Component {
   state = { data: {} };
 
+  handleClick = e => {
+    const idArr = this.props.cart
+      ? this.props.cart.map(item => item.id)
+      : '';
+    console.log(idArr);
+    this.props.addToCart(this.state.data);
+  };
+
   componentWillMount() {
     const { id } = this.props;
     this.setState({ id });
 
-    this.props.firebase
-      .getProduct(id)
-      .then(doc =>
-        doc.exists
-          ? this.setState({ data: doc.data() })
-          : console.log('No DOc')
-      )
-      .then(async () => {
-        const { href } = this.state.data;
-
-        this.setState({
-          data: { href: await this.props.firebase.getImage(href) }
-        });
-      });
-    // GEts iamge URL
-  }
-  componentDidMount() {
-    const prevState = this.state.data;
-
-    const { href } = this.state.data;
-    this.setState({
-      data: { ...prevState, href: this.props.firebase.getImage(href) }
+    this.props.firebase.getProduct(id).then(async doc => {
+      if (doc.exists) {
+        let data = doc.data();
+        this.setState({ data });
+      } else {
+        console.log('No DOC');
+      }
     });
   }
 
   render() {
     const { href, name, description, price } = this.state.data;
+
     return (
       <Wrapper>
         <Grid className={styles.grid} centered>
@@ -51,7 +47,7 @@ class ProductDetailsBase extends React.Component {
             <Image src={href} />
           </Grid.Column>
           <Grid.Column width={5}>
-            <h3>{name}</h3>
+            <h1>{name}</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing
               elit. Odit veritatis eos eaque, velit ipsam sint amet
@@ -64,8 +60,13 @@ class ProductDetailsBase extends React.Component {
             </p>
           </Grid.Column>
           <Grid.Column width={3}>
-            <h4>{price}</h4>
-            <h1>BUY BUTTON</h1>
+            <h4>
+              <Icon name="pound" />
+              {price}
+            </h4>
+            <Button size="huge" onClick={this.handleClick}>
+              Buy Now
+            </Button>
           </Grid.Column>
         </Grid>
       </Wrapper>
@@ -78,7 +79,17 @@ const Wrapper = Styled.div`
 
 
 `;
+const mapStateToProps = ({ reducers }) => ({
+  cart: reducers.cart
+});
 
-const ProductDetails = withFirebase(ProductDetailsBase);
+const mapDispatchToProps = dispatch => ({
+  addToCart: item => dispatch(addToCart(item))
+});
+
+const ProductDetails = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFirebase(ProductDetailsBase));
 
 export default ProductDetailsPage;

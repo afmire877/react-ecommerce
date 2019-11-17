@@ -50,6 +50,9 @@ class Nav extends React.Component {
           <Menu.Item as="a" link={true} href={routes.PRODUCT_PAGE}>
             Products
           </Menu.Item>
+          <Menu.Item as="a" link={true} href={routes.CART}>
+            <Icon name="cart" /> (1)
+          </Menu.Item>
         </Container>
         {authUser ? (
           <NavigationAuth authUser={authUser} />
