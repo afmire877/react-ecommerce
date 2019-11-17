@@ -48,9 +48,14 @@ class Firebase {
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
 
-  doAddUserData = data => this.db.collection('users').add(data);
+  doAddUserData = (data, uid) =>
+    this.db
+      .collection('users')
+      .doc(uid)
+      .set(data);
 
   // DB API
+  getRoles = () => this.db.collection('roles').get();
   getProducts = () => this.db.collection('products').get();
   getProduct = id =>
     this.db

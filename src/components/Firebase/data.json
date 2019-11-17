@@ -1,0 +1,246 @@
+{
+    "products": [
+        {
+            "id": 115278,
+            "cover": 73933,
+            "genres": [
+                12
+            ],
+            "name": "Rune Factory 4 Special",
+            "price": 19.99 ,"popularity": 2090.390007756014
+        },
+        {
+            "id": 120268,
+            "cover": 82665,
+            "genres": [
+                10,
+                33
+            ],
+            "name": "Zombie Driver: Immortal Edition",
+            "price": 69.99 ,"popularity": 1431.814277311318
+        },
+        {
+            "id": 105049,
+            "cover": 75344,
+            "genres": [
+                5,
+                12,
+                31
+            ],
+            "name": "Remnant: From the Ashes",
+            "price": 25.95 ,"popularity": 997.7624604734082,
+            "rating_count": 14
+        },
+        {
+            "id": 113344,
+            "cover": 79552,
+            "genres": [
+                31
+            ],
+            "name": "Monster Hunter: World - Iceborne",
+            "price": 29.49 ,"popularity": 746.3429489765377
+        },
+        {
+            "id": 19164,
+            "cover": 82158,
+            "genres": [
+                5
+            ],
+            "name": "Borderlands 3",
+            "price": 34.99 ,"popularity": 633.1150129478053,
+            "rating_count": 18
+        },
+        {
+            "id": 1877,
+            "cover": 82217,
+            "genres": [
+                12
+            ],
+            "name": "Cyberpunk 2077",
+            "price": 2349.99 ,"popularity": 570.2601350735878
+        },
+        {
+            "id": 115653,
+            "cover": 78636,
+            "genres": [
+                12,
+                31
+            ],
+            "name": "Pokémon Shield",
+            "price": 234.99 ,"popularity": 512.5317188699623
+        },
+        {
+            "id": 36198,
+            "cover": 80516,
+            "genres": [
+                12,
+                31,
+                32
+            ],
+            "name": "Children of Morta",
+            "price": 99.99 ,"popularity": 430.2854425026351,
+            "rating_count": 8
+        },
+        {
+            "id": 96217,
+            "cover": 72919,
+            "genres": [
+                12,
+                31,
+                32
+            ],
+            "name": "Eternity: The Last Unicorn",
+            "price": 1.99 ,"popularity": 395.4768334643354,
+            "rating_count": 0
+        },
+        {
+            "id": 22422,
+            "cover": 16642,
+            "genres": [
+                13,
+                31
+            ],
+            "name": "Sexy Beach 3",
+            "price": 459.99 ,"popularity": 391.1392015751758,
+            "rating_count": 16
+        },
+        {
+            "id": 26845,
+            "cover": 76781,
+            "genres": [
+                12,
+                16,
+                24,
+                31
+            ],
+            "name": "Fire Emblem: Three Houses",
+            "price": 234.99 ,"popularity": 362.5269925956771,
+            "rating_count": 21
+        },
+        {
+            "id": 55038,
+            "cover": 82160,
+            "genres": [
+                5,
+                12,
+                31
+            ],
+            "name": "Immortal: Unchained",
+            "price": 2.99 ,"popularity": 324.8586437987169,
+            "rating_count": 7
+        },
+        {
+            "id": 22387,
+            "cover": 81875,
+            "genres": [
+                12,
+                24,
+                31,
+                32
+            ],
+            "name": "Legrand Legacy",
+            "price": 29.99 ,"popularity": 313.0454929925696,
+            "rating_count": 8
+        },
+        {
+            "id": 22472,
+            "cover": 44628,
+            "genres": [
+                13
+            ],
+            "name": "Artificial Academy 2",
+            "price": 29.99 ,"popularity": 302.9167690581762,
+            "rating_count": 22
+        },
+        {
+            "id": 22490,
+            "cover": 69214,
+            "genres": [
+                31
+            ],
+            "name": "Suck My Dick or Die!",
+            "price": 29.99 ,"popularity": 300.5349515119021
+        },
+        {
+            "id": 68049,
+            "cover": 49727,
+            "genres": [
+                13
+            ],
+            "name": "The Maiden Rape Assault: Violent Semen Inferno",
+            "price": 29.99 ,"popularity": 294.4212755565392
+        },
+        {
+            "id": 26574,
+            "cover": 82161,
+            "genres": [
+                12,
+                13,
+                15,
+                31,
+                32
+            ],
+            "name": "Force of Nature",
+            "price": 29.99 ,"popularity": 283.819831449854,
+            "rating_count": 2
+        },
+        {
+            "id": 55190,
+            "cover": 70598,
+            "genres": [
+                8,
+                9,
+                31,
+                32
+            ],
+            "name": "Pikuniku",
+            "price": 29.99 ,"popularity": 273.7907594126252,
+            "rating_count": 2
+        },
+        {
+            "id": 114286,
+            "cover": 77083,
+            "genres": [
+                14
+            ],
+            "name": "Madden NFL 20",
+            "price": 29.99 ,"popularity": 268.2190527252758
+        },
+        {
+            "id": 79134,
+            "cover": 82162,
+            "genres": [
+                13,
+                15
+            ],
+            "name": "Ancient Cities",
+            "price": 29.99 ,"popularity": 265.3471104922768
+        },
+        {
+            "id": 26145,
+            "cover": 82163,
+            "genres": [
+                12,
+                13,
+                15,
+                31,
+                32
+            ],
+            "name": "Impact Winter",
+            "price": 29.99 ,"popularity": 263.7616873753963,
+            "rating_count": 6
+        },
+        {
+            "id": 80916,
+            "cover": 67256,
+            "genres": [
+                12,
+                31,
+                32
+            ],
+            "name": "Omensight",
+            "price": 29.99 ,"popularity": 262.399800050369,
+            "rating_count": 6
+        }
+    ]
+  }
