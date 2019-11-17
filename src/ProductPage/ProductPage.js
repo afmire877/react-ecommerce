@@ -1,10 +1,14 @@
+// @ts-check
 import styles from './Productpage.module.css';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Card, Container } from 'semantic-ui-react';
 import * as firebase from 'firebase/app';
+import store from '../store';
 import Firebase, { withFirebase } from '../components/Firebase';
 import ProductCard from '../components/ProductCard/productCard';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import { simpleAction } from '../actionCreator/cartActions';
 
 // const src = '/images/wireframe/white-image.png'
 
@@ -18,12 +22,14 @@ class ProductPage extends React.Component {
 
   getData() {
     let dataArr = [];
-    // console.log(this.props.firebase);
     this.props.firebase
       .getProducts()
       .then(q =>
         q.forEach(doc => {
-          dataArr.push([doc.id, doc.data()]);
+          let data = doc.data();
+          let { id } = doc;
+          console.log(data);
+          dataArr.push({ ...data, id: parseInt(id) });
           console.log(dataArr);
         })
       )
@@ -57,21 +63,32 @@ class ProductPage extends React.Component {
 
 /**
  *
- * @param {array} props array of products
+ * @param {array} products array of products
  */
 
 const Cards = ({ products }) => (
   <Card.Group itemsPerRow={3}>
+    {console.log(products)}
     {products.map(product => {
       return (
         <ProductCard
-          name={product[1].name}
-          price={product[1].price}
-          href={`/products/${product[0]}`}
+          name={product.name}
+          price={product.price}
+          href={`/products/${product.id}`}
         />
       );
     })}
   </Card.Group>
 );
 
-export default withFirebase(ProductPage);
+const mapDispatchToProps = dispatch => ({
+  simpleAction: () => dispatch(simpleAction())
+});
+
+const mapStateToProps = state => ({
+  ...state
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFirebase(ProductPage));
