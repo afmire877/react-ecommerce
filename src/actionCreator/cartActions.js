@@ -1,12 +1,10 @@
-import store from '../store';
+export function addToCart(item) {
+  return { type: 'ADD_CART_ITEM', payload: item };
+}
+export function addAnotherCartItem(item) {
+  return { type: 'ADD_ANOTHER_CART_ITEM', payload: item };
+}
 
-export const simpleAction = () => dispatch => {
-  dispatch({
-    type: 'ADD_ITEM',
-    payload: 'result_of_simple_action'
-  });
-};
-// export const cartAction = payload => ({
-//   type: '',
-//   payload
-// });
+export function deleteCartItem(item) {
+  return { type: 'DELETE_CART_ITEM', payload: item };
+}

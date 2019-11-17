@@ -2,9 +2,16 @@ import React from 'react';
 
 export default (state = [], { type, payload }) => {
   switch (type) {
-    case 'ADD_ITEM':
+    case 'ADD_CART_ITEM':
       return [...state, payload];
     case 'REMOVE_ITEM':
+      break;
+    case 'ADD_ANOTHER_CART_ITEM':
+      let stateCopy = [...state];
+
+      let [item] = state.filter(i => i.id === payload.id);
+      item.quantity = item.quantity + 1 || 1;
+      return [...stateCopy];
       break;
     default:
       return state;

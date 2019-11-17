@@ -8,7 +8,6 @@ import store from '../store';
 import Firebase, { withFirebase } from '../components/Firebase';
 import ProductCard from '../components/ProductCard/productCard';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
-import { simpleAction } from '../actionCreator/cartActions';
 
 // const src = '/images/wireframe/white-image.png'
 
@@ -81,14 +80,7 @@ const Cards = ({ products }) => (
   </Card.Group>
 );
 
-const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
-});
-
 const mapStateToProps = state => ({
   ...state
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withFirebase(ProductPage));
+export default connect(mapStateToProps)(withFirebase(ProductPage));

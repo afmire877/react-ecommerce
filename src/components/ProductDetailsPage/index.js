@@ -1,11 +1,16 @@
 import styles from './index.module.css';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect, Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { Image, Grid, Icon, Button } from 'semantic-ui-react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
-import addToCart from '../../actionCreator/addToCart';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import {
+  addToCart,
+  addAnotherCartItem
+} from '../../actionCreator/cartActions';
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -13,14 +18,18 @@ const ProductDetailsPage = () => {
 };
 
 class ProductDetailsBase extends React.Component {
-  state = { data: {} };
+  state = {
+    data: {}
+  };
 
   handleClick = e => {
+    const { data } = this.state;
     const idArr = this.props.cart
       ? this.props.cart.map(item => item.id)
-      : '';
-    console.log(idArr);
-    this.props.addToCart(this.state.data);
+      : [];
+    idArr.includes(data.id)
+      ? this.props.addAnotherCartItem(data)
+      : this.props.addToCart({ ...data, quantity: 1 });
   };
 
   componentWillMount() {
@@ -30,7 +39,7 @@ class ProductDetailsBase extends React.Component {
     this.props.firebase.getProduct(id).then(async doc => {
       if (doc.exists) {
         let data = doc.data();
-        this.setState({ data });
+        this.setState({ data, quantity: 0 });
       } else {
         console.log('No DOC');
       }
@@ -64,9 +73,16 @@ class ProductDetailsBase extends React.Component {
               <Icon name="pound" />
               {price}
             </h4>
-            <Button size="huge" onClick={this.handleClick}>
+            <Button
+              css={css``}
+              size="huge"
+              onClick={this.handleClick}
+            >
               Buy Now
             </Button>
+            <Link to="/checkout">
+              <Button size="huge">Checkout</Button>
+            </Link>
           </Grid.Column>
         </Grid>
       </Wrapper>
@@ -79,12 +95,13 @@ const Wrapper = Styled.div`
 
 
 `;
-const mapStateToProps = ({ reducers }) => ({
-  cart: reducers.cart
+const mapStateToProps = ({ cart }) => ({
+  cart
 });
 
 const mapDispatchToProps = dispatch => ({
-  addToCart: item => dispatch(addToCart(item))
+  addToCart: item => dispatch(addToCart(item)),
+  addAnotherCartItem: item => dispatch(addAnotherCartItem(item))
 });
 
 const ProductDetails = connect(
