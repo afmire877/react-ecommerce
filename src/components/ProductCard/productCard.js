@@ -1,14 +1,21 @@
 import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
+import placeholder from '../../images/place.png';
 
-const ProductCard = ({ image, name, id, price, href }) => (
+const ProductCard = ({ image, name, id, price, href, summary }) => (
   <Card link={true} href={href}>
-    {image ? <Image src={image} wrapped ui={false} /> : ''}
+    {placeholder ? (
+      <Image src={placeholder} wrapped ui={false} />
+    ) : (
+      ''
+    )}
     <Card.Content>
       <Card.Header>{name}</Card.Header>
 
       <Card.Description>
-        Matthew is a musician living in Nashville.
+        {summary
+          ? `${summary.substring(0, 42)}...`
+          : ` Lorem ipsum dolor sit amet consectetur adipisicing elit.`}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
