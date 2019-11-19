@@ -1,6 +1,6 @@
 import styles from './index.module.css';
 import React from 'react';
-import { useParams, Redirect, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { Image, Grid, Icon, Button } from 'semantic-ui-react';
 import Styled from 'styled-components';
@@ -47,7 +47,7 @@ class ProductDetailsBase extends React.Component {
   }
 
   render() {
-    const { href, name, description, price } = this.state.data;
+    const { href, name, summary, price } = this.state.data;
 
     return (
       <Wrapper>
@@ -58,14 +58,16 @@ class ProductDetailsBase extends React.Component {
           <Grid.Column width={5}>
             <h1>{name}</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing
+              {summary
+                ? summary
+                : `Lorem ipsum dolor sit amet, consectetur adipisicing
               elit. Odit veritatis eos eaque, velit ipsam sint amet
               voluptatem impedit, expedita beatae eum explicabo
               repellat iste dolorum natus tempora et odio alias
               accusamus ut praesentium atque dolor magni quia?
               Mollitia eum voluptatibus eius eveniet nam nobis ipsa
               aperiam quia, quae debitis porro! Laboriosam in iusto
-              esse expedita aut magnam vitae vero corrupti.
+              esse expedita aut magnam vitae vero corrupti.`}
             </p>
           </Grid.Column>
           <Grid.Column width={3}>

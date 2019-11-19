@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Form, Header, Grid } from 'semantic-ui-react';
 import * as routes from '../Common/routes';
 import { compose } from 'recompose';
 
-import Firebase, { withFirebase } from '../Firebase';
+import { withFirebase } from '../Firebase';
 
 export default () => {
   return <SignUpForm />;
@@ -44,8 +44,7 @@ class SignUpFormBase extends React.Component {
       gender,
       phoneNumber,
       email,
-      passwordOne,
-      termsCheck
+      passwordOne
     } = this.state;
 
     this.props.firebase
@@ -200,9 +199,6 @@ class SignUpFormBase extends React.Component {
   }
 }
 
-const SignUpForm = compose(
-  withRouter,
-  withFirebase
-)(SignUpFormBase);
+const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
 
 export { SignUpForm };

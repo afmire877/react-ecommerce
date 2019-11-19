@@ -4,7 +4,12 @@ export default (state = [], { type, payload }) => {
   switch (type) {
     case 'ADD_CART_ITEM':
       return [...state, payload];
-    case 'REMOVE_ITEM':
+    case 'REMOVE_CART_ITEM':
+      let newState = [...state];
+      let x = newState.filter(i => i.id !== payload.id);
+      console.log(x);
+      return x;
+
       break;
     case 'ADD_ANOTHER_CART_ITEM':
       let stateCopy = [...state];
@@ -12,7 +17,7 @@ export default (state = [], { type, payload }) => {
       let [item] = state.filter(i => i.id === payload.id);
       item.quantity = item.quantity + 1 || 1;
       return [...stateCopy];
-      break;
+
     default:
       return state;
   }

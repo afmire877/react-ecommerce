@@ -3,9 +3,8 @@ import styles from './Productpage.module.css';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Card, Container } from 'semantic-ui-react';
-import * as firebase from 'firebase/app';
-import store from '../store';
-import Firebase, { withFirebase } from '../components/Firebase';
+
+import { withFirebase } from '../components/Firebase';
 import ProductCard from '../components/ProductCard/productCard';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 
@@ -44,17 +43,14 @@ class ProductPage extends React.Component {
   render() {
     return (
       <Fragment>
-        <Container>
-          <h1>All Products</h1>
-          <div className={styles.wrapper}>
-            <LoadingSpinner
-              className={styles.wrapper}
-              active={this.state.isloading}
-            >
+        <LoadingSpinner active={this.state.isloading}>
+          <Container>
+            <h1>All Products</h1>
+            <div className={styles.wrapper}>
               <Cards products={this.state.data} />
-            </LoadingSpinner>
-          </div>
-        </Container>
+            </div>
+          </Container>
+        </LoadingSpinner>
       </Fragment>
     );
   }
@@ -74,6 +70,7 @@ const Cards = ({ products }) => (
           name={product.name}
           price={product.price}
           href={`/products/${product.id}`}
+          summary={product.summary}
         />
       );
     })}
